@@ -2,7 +2,7 @@ Sub 本学期课程处理()
 
     Dim rows As Integer
     Dim rg As Range
-    
+    Set myRegExp = CreateObject("vbscript.regexp")
     
     rows = ActiveSheet.[A65536].End(xlUp).Row '表行数
     
@@ -20,6 +20,16 @@ Sub 本学期课程处理()
             End If
             if c_letter = "H" Then
             	v = Replace(rg.value, "－", "-")
+            	rg.value = v
+            End If
+            if c_letter = "M" Then
+            	v = Replace(rg.value, "＃", "#")
+                myRegExp.Pattern = "\((\d*#|研\S*)\)"
+            	Set myMatches = myRegExp.Execute(v)
+                If myMatches.Count >= 1 Then
+                    Set myMatch = myMatches(0)
+                    v = myRegExp.Replace(v, "")
+                End If
             	rg.value = v
             End If
             If IsEmpty(rg) = True Then

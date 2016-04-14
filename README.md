@@ -1,2 +1,1 @@
-# Javascript-Tools
-一些日常javascript小工具
+# 一些日常小工具
